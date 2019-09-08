@@ -1,0 +1,30 @@
+﻿@model Carrito.Models.MetodoPago
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MetodoPago</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroReferencia)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.NumeroReferencia)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.MetodoPagoID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

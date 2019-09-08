@@ -1,0 +1,201 @@
+﻿
+@model IEnumerable<DetallePedido>
+
+@{
+    ViewData["Title"] = "Index";
+}
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+            <li class="page-item " aria-current="page">
+                <span class="page-link">
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
+            <li class="page-item"><a class="page-link" asp-controller="Articulos" asp-action="Index">3</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ArticuloiD</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbodyDetallePedido"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">PrecioTotal</td>
+                    <td><label id="lblTotal"></label></td>
+
+                </tr>
+
+            </tfoot>
+
+        </table>
+    </div>
+    <div class="container">
+        <a asp-area="" asp-controller="Clientes" asp-action="IndexCl">Home</a>
+    </div>
+
+<div class="modal fade" id="modalEditar" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Editar 2</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ArticuloId:<label id="lblId"></label><br />
+                Nombre:<label id="lblNombre"></label><br />
+                Precio:<label id="lblPrecio"></label><br />
+                Cantidad: <input type="text" id="txtEditarCtd" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnEditar" class="btn btn-primary">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        fnLlenar();
+        fnEditar();
+        fnEditarBtn();
+        fnEliminar();
+    });
+
+    function fnLlenar() {
+        var tbody = "";
+        $.ajax({
+            type: "GET",
+            url: "DetallePedidos/Llenar",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                if (typeof data != "undefined") {
+                    for (var i = 0; i < data.length; i++) {
+                        tbody = "<tr>";
+                        tbody += "<td>" + data[i].Articulo.ArticuloID+ "</td>";
+                        tbody += "<td>" + data[i].Articulo.Nombre + "</td>";
+                        tbody += "<td>" + data[i].Articulo.Precio + "</td>";
+                        tbody += "<td>" + data[i].Cantidad + "</td>";
+                        tbody += "<td>" + data[i].Total + "</td>";
+                        tbody += "<td>" ;
+                        tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-info'/>" ;
+                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-warning'/>" ;
+                        tbody += "</td>";
+                        tbody += "</tr>";
+                        $("#tbodyDetallePedido").append(tbody);
+                        fnPrecioTotal();
+                    }
+                    console.log(data);
+                }
+            },
+            error: function () {
+
+            }
+            
+        });
+    }
+    function fnPrecioTotal() {
+        var sumaTotal = 0;
+        $("#tbodyDetallePedido").find("tr").each(function () {
+            var total = parseFloat($(this).find("td").eq(4).text())
+            sumaTotal += total;
+        });
+        $("#lblTotal").text(sumaTotal);
+    }
+
+    var col_ArticuloID;
+    var col_nombre;
+    var col_precio;
+    var col_cantidad;
+    var col_total;
+    var popup;
+    function fnEditar() {
+        $(document).on("click", "#btnEditar", function () {
+            popup = $("#modalEditar");
+            col_ArticuloID = $(this).closest("tr").find("td").eq(0).text();
+            col_nombre = $(this).closest("tr").find("td").eq(1).text();
+            col_precio = $(this).closest("tr").find("td").eq(2);
+            col_cantidad = $(this).closest("tr").find("td").eq(3);
+            col_total = $(this).closest("tr").find("td").eq(4);
+
+            popup.find("#lblId").text(col_ArticuloID);
+            popup.find("#lblNombre").text(col_nombre);
+            popup.find("#lblPrecio").text(col_precio.text());
+            popup.find("#txtEditarCtd").val(col_cantidad.text());
+            popup.modal();
+        });
+    }
+
+    function fnEditarBtn() {
+        $("#btnEditar").on("click", function () {
+                col_cantidad.text($("#txtEditarCtd").val());
+
+                var monto = parseFloat(col_precio.text() * col_cantidad.text());
+                col_total.text(monto);
+                fnPrecioTotal();
+
+                popup.modal("hide");
+
+                var odata = {
+                    "Articulo": {
+                        "ArticuloID": col_ArticuloID,
+                },
+                    "Cantidad": col_cantidad.text(),
+                    "Total": $("#lblTotal").text()
+            };
+            console.log(odata);
+
+            $.ajax({
+                type: "POST",
+                url: "DetallePedidos/Editar",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(odata),
+                success: function (d) {
+                    console.log(d);
+                },
+                error: function () {
+
+                }
+            });
+        });
+    }
+    function fnEliminar() {
+        $(document).on("click", "#btnEliminar", function () {
+
+            var idArticulo = $(this).closest("tr").find("td").eq(0).text();
+            $.ajax({
+                type: "POST",
+                url: "DetallePedidos/Eliminar/?articuloID=" + idArticulo,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (d) {
+                if (d != null || d != "") {
+                    fnPrecioTotal();
+                }
+            },
+            error: function () {
+
+            }
+            });
+            $(this).closest("tr").remove();
+        });
+    }
+</script>
