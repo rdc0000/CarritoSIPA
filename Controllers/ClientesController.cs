@@ -29,6 +29,19 @@ namespace Carrito.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IndexCl([Bind("ClienteID,Nombre,Apellido,Direccion,Email,Telefono,Documento")] Cliente cliente)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(cliente);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexCl));
+            }
+            return View(cliente);
+        }
+
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(int? id)
         {

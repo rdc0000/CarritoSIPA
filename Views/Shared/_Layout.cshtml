@@ -6,16 +6,22 @@
     <title>@ViewData["Title"] - Carrito</title>
 
     <environment include="Development">
-
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link href="~/css/agency.css" rel="stylesheet" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+        @*<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
     </environment>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+          crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
     <script type="text/javascript" src="~/jquery/jquery.min.js"></script>
 </head>
 <body>
@@ -28,13 +34,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Carrito</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SIPA</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Articulos" asp-action="Index">Articulo</a></li>
-                    <li><a asp-area="" asp-controller="DetallePedidos" asp-action="Index">Detalle del pedido</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#services">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#portfolio">Ofertas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#about">Ingresar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contactenos</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-shopping-cart fa-stack-1x "></i></a>
+                    </li>
                 </ul>
                 <span class="navbar-text">
                     <label id="lblItemCarro">(0)</label>
@@ -49,6 +67,67 @@
         @RenderBody()
         <hr />
         <footer>
+            <section id="contact">
+                <div class="container">
+                    <h2 class="text-center text-uppercase text-secondary mb-0">Contactenos</h2>
+                    <hr class="star-dark mb-5">
+                    <div class="row">
+                        <div class="col-lg-8 mx-auto">
+                            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                        <label>
+                                            <h4>Nombre</h4>
+                                        </label>
+                                        <input class="form-control" id="name" type="text" placeholder="Digite su usuario" required="required"
+                                               data-validation-required-message="Digite su usuario.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                        <label>
+                                            <h4>Correo</h4>
+                                        </label>
+                                        <input class="form-control" id="email" type="email" placeholder="Digite su email" required="required"
+                                               data-validation-required-message="Digite su email.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                        <label>
+                                            <h4>Numero</h4>
+                                        </label>
+                                        <input class="form-control" id="phone" type="tel" placeholder="Digite su telefono." required="required"
+                                               data-validation-required-message="Digite su telefono.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                                        <label>
+                                            <h4>Mensaje</h4>
+                                        </label>
+                                        <textarea class="form-control" id="message" rows="5" placeholder="Digite su mensaje" required="required"
+                                                  data-validation-required-message="Digite su mensaje"></textarea>
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div id="success"></div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
             <p>&copy; 2019 - Carrito</p>
         </footer>
     </div>

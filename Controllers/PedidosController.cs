@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carrito.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Carrito.Controllers
 {
@@ -20,6 +21,12 @@ namespace Carrito.Controllers
 
         // GET: Pedidos
         public async Task<IActionResult> Index()
+        {
+            var carritoContext = _context.Pedido.Include(p => p.Autoservicio).Include(p => p.Cliente).Include(p => p.Domicilio).Include(p => p.MetodoPago);
+            return View(await carritoContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexCl()
         {
             var carritoContext = _context.Pedido.Include(p => p.Autoservicio).Include(p => p.Cliente).Include(p => p.Domicilio).Include(p => p.MetodoPago);
             return View(await carritoContext.ToListAsync());
@@ -173,5 +180,14 @@ namespace Carrito.Controllers
         {
             return _context.Pedido.Any(e => e.PedidoID == id);
         }
+
+        [HttpGet]
+        public string Llenar()
+        {
+            var session = HttpContext.Session.GetString("carrito");
+            return session;
+        }
+
+        
     }
 }

@@ -9,7 +9,7 @@ namespace Carrito.Models
     {
         public int DetallePedidoID { get; set; }
         public Articulo Articulo { get; set; }
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         private decimal _Total;
 
         public decimal Total

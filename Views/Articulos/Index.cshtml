@@ -1,70 +1,70 @@
 ﻿@model IEnumerable<Articulo>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "IndexCl";
 }
 
-<h2>Index</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4  col-lg-4">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+                @foreach (var item in Model)
+                {
+                <div class="card-group">
+                    <div class="card">
+                        <img src="@Html.DisplayFor(modelItem => item.Imagen)" title="@Html.DisplayFor(modelItem => item.Nombre)" /><br />
+                        <div class="card-body">
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src="@Html.DisplayFor(modelItem => item.Imagen)" title="@Html.DisplayFor(modelItem => item.Nombre)" /><br />
-                Nombre: <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label><br />
-                Precio: <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
-                Cantidad: <input type="text" id="txtCantidad" /><br />
-                <input type="button" value="Agregar" class="btn btn-dark" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
-            </td>
-            <td>
-                |
-                <a asp-action="Edit" asp-route-id="@item.ArticuloID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ArticuloID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ArticuloID">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
-<script>
+                            Nombre: <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label><br />
+                            Precio: <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
+                            Cantidad: <input type="text" id="txtCantidad" /><br />
+                            <input type="button" value="Agregar" class="btn btn-dark" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
 
-    function fnAgregrar(ArticuloID, Nombre, Precio, Imagen) {
-        var cantidad = document.getElementById("txtCantidad").value;
-        if (cantidad == null || cantidad == "") {
-
-            alert("Ingrese cantidad" + cantidad);
-            return;
-        }
-        var odata = {
-            "Articulo": {
-                "ArticuloID": ArticuloID,
-                "Nombre": Nombre,
-                "Precio": Precio,
-                "Imagen": Imagen
-            },
-            "Cantidad": cantidad
-        };
-        console.log(odata);
-
-        $.ajax({
-            type: "POST",
-            url: "DetallePedidos/Agregar",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: JSON.stringify(odata),
-            success: function (d) {
-                if (d != null || d != "") {
-                    $("#lblItemCarro").text("(" + d.length + ") Items agregados al carrito");
+                        </div>
+                    </div>
+                </div>
+                        }
                     
-                }
-            },
-            error: function () {
+                </div>
+        </div>
+    </div>
+    
+        
+        <script>
 
+            function fnAgregrar(ArticuloID, Nombre, Precio, Imagen) {
+                var cantidad = document.getElementById("txtCantidad").value;
+                if (cantidad == null || cantidad == "") {
+
+                    alert("Ingrese cantidad" + cantidad);
+                    return;
+                }
+                var odata = {
+                    "Articulo": {
+                        "ArticuloID": ArticuloID,
+                        "Nombre": Nombre,
+                        "Precio": Precio,
+                        "Imagen": Imagen
+                    },
+                    "Cantidad": cantidad
+                };
+                console.log(odata);
+
+                $.ajax({
+                    type: "POST",
+                    url: "DetallePedidos/Agregar",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(odata),
+                    success: function (d) {
+                        if (d != null || d != "") {
+                            $("#lblItemCarro").text("(" + d.length + ") Items agregados al carrito");
+
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
             }
-        });
-    }
-</script>
+        </script>

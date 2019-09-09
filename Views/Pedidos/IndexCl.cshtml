@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Carrito.Models.Pedido>
+
+@{
+    ViewData["Title"] = "IndexCl";
+}
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+            <li class="page-item " aria-current="page">
+                <span class="page-link">
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
+            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a></li>
+        </ul>
+    </nav>
+
+<h2>IndexCl</h2>
+
+<div class="card text-left">    
+    <div class="card-body" id="cBody">
+        @foreach (var item in Model)
+        {
+            <p>Cliente: @Html.DisplayFor(modelItem => item.Cliente.Nombre) @Html.DisplayFor(modelItem => item.Cliente.Apellido)</p>
+            <p>Metodo de pago: @Html.DisplayFor(modelItem => item.MetodoPago.Nombre)</p>
+            <p>Direccion: @Html.DisplayFor(modelItem => item.Cliente.Direccion)</p>
+            <p>@Html.DisplayFor(modelItem => item.Domicilio.Transporte)</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        }
+        </div>
+    <div class="card-footer text-muted">
+        2 days ago
+    </div>
+</div>
+<script>
+    $(function () {
+        fnLlenar();
+    });
+    function fnLlenar() {
+        var tbody = "";
+        $.ajax({
+            type: "GET",
+            url: "Pedidos/Llenar",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                if (typeof data != "undefined") {
+                    for (var i = 0; i < data.length; i++) {
+                        tbody += "<p>" + data[i].DetallePedido.Total+ "</p>";          
+                        $("#cBody").append(tbody);
+                        fnPrecioTotal();
+                    }
+                    console.log(data);
+                }
+            },
+            error: function () {
+
+            }
+            
+        });
+    }
+</script>

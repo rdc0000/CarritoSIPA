@@ -24,7 +24,7 @@ namespace Carrito.Controllers
             return View(await _context.Articulo.ToListAsync());
         }
 
-        public async Task<IActionResult> Index2()
+        public async Task<IActionResult> IndexCl()
         {
             return View(await _context.Articulo.ToListAsync());
         }

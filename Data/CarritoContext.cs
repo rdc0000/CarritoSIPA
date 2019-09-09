@@ -29,4 +29,6 @@ using Carrito.Models;
         public DbSet<Carrito.Models.Domicilio> Domicilio { get; set; }
 
         public DbSet<Carrito.Models.Pedido> Pedido { get; set; }
+
+        public DbSet<Carrito.Models.Transporte> Transporte { get; set; }
 }
