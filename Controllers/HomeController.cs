@@ -22,7 +22,7 @@ namespace Carrito.Controllers
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult Admin()
         {
             ViewData["Message"] = "Your contact page.";
 

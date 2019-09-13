@@ -1,17 +1,21 @@
 ﻿@{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Admin";
 }
 <h2>@ViewData["Title"]</h2>
 <h3>@ViewData["Message"]</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<h2>Tablas proyecto SIPA</h2>
+<div class="btn-group-vertical" role="toolbar" aria-label="Toolbar with button groups">
+    <div class="btn-group mr-2" role="group" aria-label="First group">
+        <a asp-area="" asp-controller="Articulos" asp-action="IndexCl" class="btn btn-primary" role="button">Articulo</a>
+        <a asp-area="" asp-controller="Autoservicios" asp-action="" class="btn btn-primary" role="button">Autoservicio</a>
+        <a asp-area="" asp-controller="Clientes" asp-action="" class="btn btn-primary" role="button">Cliente</a>
+        <a asp-area="" asp-controller="Domicilios" asp-action="" class="btn btn-primary" role="button">Domicilio</a>
+        <a asp-area="" asp-controller="DetallePedidos" asp-action="" class="btn btn-primary" role="button">Detalle de pedidos</a>
+        <a asp-area="" asp-controller="Empleados" asp-action="" class="btn btn-primary" role="button">Empleado</a>
+        <a asp-area="" asp-controller="MetodoPagos" asp-action="" class="btn btn-primary" role="button">Metodo de pago</a>
+        <a asp-area="" asp-controller="Pedidos" asp-action="" class="btn btn-primary" role="button">Pedido</a>
+        <a asp-area="" asp-controller="Proveedores" asp-action="" class="btn btn-primary" role="button">Proveedor</a>
+        <a asp-area="" asp-controller="Transportes" asp-action="" class="btn btn-primary" role="button">Transporte</a>
+    </div>
+</div>
