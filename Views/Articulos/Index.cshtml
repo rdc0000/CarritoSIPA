@@ -3,29 +3,34 @@
 @{
     ViewData["Title"] = "IndexCl";
 }
-
-    <div class="container">
+    <br />
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-sm-4  col-lg-4">
+           @foreach (var item in Model)
+            { 
+                <div class="col-sm-12 col-md-5  col-lg-4">
+                
+                    <div class="card-group">
+                        <div class="card border-dark mb-3 text-white" style="max-width: 18rem;">
+                            <div class="card-header bg-dark text-sm-center">
+                                <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label>
+                            </div>
+                            <div class="card-body text-dark">
+                                <h5 class="card-title"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6mYnGb38WSg-XS24yu6LNTw0K29HYZp9U_6XyQS6_PaCqwPH1Bw" alt="Alternate Text" /></h5>
 
-                @foreach (var item in Model)
-                {
-                <div class="card-group">
-                    <div class="card">
-                        <img src="@Html.DisplayFor(modelItem => item.Imagen)" title="@Html.DisplayFor(modelItem => item.Nombre)" /><br />
-                        <div class="card-body">
-
-                            Nombre: <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label><br />
-                            Precio: <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
-                            Cantidad: <input type="text" id="txtCantidad" /><br />
-                            <input type="button" value="Agregar" class="btn btn-dark" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
-
+                                <h6>Precio:</h6>
+                                <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
+                                <h6>Cantidad:</h6>
+                                <input type="text" id="txtCantidad" /><br />
+                                
+                            </div>
+                            <div class="card-footer text-center">
+                                <input type="button" value="Agregar" class="btn btn-dark" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
+                            </div>
                         </div>
                     </div>
                 </div>
-                        }
-                    
-                </div>
+            }
         </div>
     </div>
     
@@ -36,8 +41,10 @@
                 var cantidad = document.getElementById("txtCantidad").value;
                 if (cantidad == null || cantidad == "") {
 
-                    alert("Ingrese cantidad" + cantidad);
+                    $("#alerts").text("Ingrese cantidad");
                     return;
+                } else {
+                    $("#alerts").hide();
                 }
                 var odata = {
                     "Articulo": {
@@ -58,7 +65,7 @@
                     data: JSON.stringify(odata),
                     success: function (d) {
                         if (d != null || d != "") {
-                            $("#lblItemCarro").text("(" + d.length + ") Items agregados al carrito");
+                            $("#lblItemCarro").text("(" + d.length + ")");
 
                         }
                     },
