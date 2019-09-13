@@ -4,18 +4,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-    <nav aria-label="...">
-        <ul class="pagination pagination-lg">
-            <li class="page-item " aria-current="page">
-                <span class="page-link">
-                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
-                </span>
-            </li>
-            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
-            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a></li>
-        </ul>
-    </nav>
-
     <div class="container">
         <table class="table table-bordered table-striped">
             <thead>
@@ -40,9 +28,20 @@
 
         </table>
     </div>
-    <div class="container">
-        <a asp-area="" asp-controller="Clientes" asp-action="IndexCl">Home</a>
-    </div>
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+            <li>
+                <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+            </li>
+            <li class="page-item " aria-current="page">
+                <span class="page-link">
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
+            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a></li>
+        </ul>
+    </nav>
 
 <div class="modal fade" id="modalEditar" >
     <div class="modal-dialog" role="document">

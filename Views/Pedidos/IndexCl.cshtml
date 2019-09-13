@@ -3,17 +3,6 @@
 @{
     ViewData["Title"] = "IndexCl";
 }
-    <nav aria-label="...">
-        <ul class="pagination pagination-lg">
-            <li class="page-item " aria-current="page">
-                <span class="page-link">
-                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
-                </span>
-            </li>
-            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
-            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a></li>
-        </ul>
-    </nav>
 
 <h2>IndexCl</h2>
 
@@ -29,7 +18,22 @@
         }
         </div>
     <div class="card-footer text-muted">
-        2 days ago
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a class="page-link" asp-controller="Articulos" asp-action="Index" ><i class="fas fa-shopping-basket"></i></a>
+                </li>
+                <li class="page-item " aria-current="page">
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                </li>
+                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
+                <li class="page-item">
+                    <span class="page-link">
+                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a>
+                    </span>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <script>

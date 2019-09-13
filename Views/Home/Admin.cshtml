@@ -1,12 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Admin";
-}
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
-
+}<br />
+ <br />
 <h2>Tablas proyecto SIPA</h2>
-<div class="btn-group-vertical" role="toolbar" aria-label="Toolbar with button groups">
-    <div class="btn-group mr-2" role="group" aria-label="First group">
+
+    <div class="btn-group mr-2" role="group" aria-label="First group" style=".btn{margin-top:0;}">
         <a asp-area="" asp-controller="Articulos" asp-action="IndexCl" class="btn btn-primary" role="button">Articulo</a>
         <a asp-area="" asp-controller="Autoservicios" asp-action="" class="btn btn-primary" role="button">Autoservicio</a>
         <a asp-area="" asp-controller="Clientes" asp-action="" class="btn btn-primary" role="button">Cliente</a>
@@ -18,4 +16,4 @@
         <a asp-area="" asp-controller="Proveedores" asp-action="" class="btn btn-primary" role="button">Proveedor</a>
         <a asp-area="" asp-controller="Transportes" asp-action="" class="btn btn-primary" role="button">Transporte</a>
     </div>
-</div>
+

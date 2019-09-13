@@ -3,15 +3,7 @@
     ViewData["Title"] = "IndexCl";
 }
 <br />
-<nav aria-label="...">
-    <ul class="pagination pagination-lg">
-        <li class="page-item " aria-current="page">
-            <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
-        </li>
-        <li class="page-item"><a class="page-link"asp-controller="Clientes" asp-action="IndexCl" >2</a></li>
-        <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl" >3</a></li>
-    </ul>
-</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-lg-6 jumbotron jumbotron-fluid">
@@ -21,7 +13,24 @@
             <p>Si ya eres cliente de SIPA digita tu correo.</p>
             <input type="email" id="email" class="form-control" />
             <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="fnValidar()">Verificar</button>
-
+            <nav aria-label="...">
+                <ul class="pagination pagination-lg">
+                    <li>
+                    <a class="page-link" asp-controller="Articulos" asp-action="Index" ><i class="fas fa-shopping-basket"></i></i></a>
+                </li>
+                    <li class="page-item " aria-current="page">                        
+                        <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                    </li>
+                    <li class="page-item">
+                        <span class="page-link">
+                            <a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a>
+                        </span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a>
+                    </li>
+                </ul>
+            </nav>
 
         </div>
         <div class="col-md-6 col-lg-6 jumbotron">
@@ -66,6 +75,7 @@
         </div>
     </div>
 </div>
+
 
 @*<script>
     function fnValidar(email) {
