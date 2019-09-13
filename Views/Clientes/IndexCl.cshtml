@@ -3,6 +3,7 @@
     ViewData["Title"] = "IndexCl";
 }
 <br />
+<br />
 
 <div class="container">
     <div class="row">
@@ -12,25 +13,28 @@
             <hr class="my-4">
             <p>Si ya eres cliente de SIPA digita tu correo.</p>
             <input type="email" id="email" class="form-control" />
-            <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="fnValidar()">Verificar</button>
-            <nav aria-label="...">
-                <ul class="pagination pagination-lg">
-                    <li>
-                    <a class="page-link" asp-controller="Articulos" asp-action="Index" ><i class="fas fa-shopping-basket"></i></i></a>
-                </li>
-                    <li class="page-item " aria-current="page">                        
-                        <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
-                    </li>
-                    <li class="page-item">
-                        <span class="page-link">
-                            <a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a>
-                        </span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a>
-                    </li>
-                </ul>
-            </nav>
+            <button type="submit" class="btn btn-dark text-warning btn-lg btn-block" onclick="fnValidar()">Verificar</button>
+
+            <div class="cFoo">
+                <nav aria-label="...">
+                    <ul class="pagination pagination-lg">
+                        <li>
+                            <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></i></a>
+                        </li>
+                        <li class="page-item " aria-current="page">
+                            <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                        </li>
+                        <li class="page-item">
+                            <span class="page-link">
+                                <a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a>
+                            </span>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
 
         </div>
         <div class="col-md-6 col-lg-6 jumbotron">
@@ -69,7 +73,7 @@
                     <span asp-validation-for="Documento" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Guardar" class="btn btn-info" />
+                    <input type="submit" value="Guardar" class="btn btn-dark text-warning" />
                 </div>
             </form>
         </div>
@@ -78,28 +82,28 @@
 
 
 @*<script>
-    function fnValidar(email) {
-        var email = document.getElementById("email");
-        if (email == null || email == "") {
+        function fnValidar(email) {
+            var email = document.getElementById("email");
+            if (email == null || email == "") {
 
-            alert("Ingrese email para validar" + cantidad);
-            return;
-        } else if (email == Cliente.email) {
-            console.log("Cliente encontrado");
-        } else {
-            console.log("Cliente NO encontrado");
+                alert("Ingrese email para validar" + cantidad);
+                return;
+            } else if (email == Cliente.email) {
+                console.log("Cliente encontrado");
+            } else {
+                console.log("Cliente NO encontrado");
+            }
+            //$.ajax({
+            //    type: "GET",
+            //    url: "Clientes/ClienteExists",
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    success: function (d) {
+            //        console.log(d+" emailCliente");
+            //    },
+            //    error: function () {
+
+            //    }
+            //});
         }
-        //$.ajax({
-        //    type: "GET",
-        //    url: "Clientes/ClienteExists",
-        //    contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    success: function (d) {
-        //        console.log(d+" emailCliente");
-        //    },
-        //    error: function () {
-
-        //    }
-        //});
-    }
-</script>*@
+    </script>*@

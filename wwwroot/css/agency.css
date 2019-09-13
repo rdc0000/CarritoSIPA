@@ -176,9 +176,14 @@ header.masthead {
   margin:0;
 }
 
+div.cFoo nav ul.pagination li a.page-link {
+    background-color: #fec810 !important;
+    color: black !important;
+}
+
 header.masthead .intro-text {
-  padding-top: 150px;
-  padding-bottom: 100px;
+    padding-top: 150px;
+    padding-bottom: 100px;
 }
 
 header.masthead .intro-text .intro-lead-in {

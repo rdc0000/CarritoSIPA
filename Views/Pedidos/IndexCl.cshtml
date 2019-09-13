@@ -3,10 +3,11 @@
 @{
     ViewData["Title"] = "IndexCl";
 }
-
+<br />
+<br />
 <h2>IndexCl</h2>
 
-<div class="card text-left">    
+<div class="card text-left">
     <div class="card-body" id="cBody">
         @foreach (var item in Model)
         {
@@ -14,22 +15,22 @@
             <p>Metodo de pago: @Html.DisplayFor(modelItem => item.MetodoPago.Nombre)</p>
             <p>Direccion: @Html.DisplayFor(modelItem => item.Cliente.Direccion)</p>
             <p>@Html.DisplayFor(modelItem => item.Domicilio.Transporte)</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a href="#" class="btn btn-dark">Go somewhere</a>
         }
-        </div>
-    <div class="card-footer text-muted">
-        <nav aria-label="...">
+    </div>
+    <div class="card-footer cFoo text-muted">
+        <nav class="navIt" aria-label="...">
             <ul class="pagination pagination-lg">
-                <li>
-                    <a class="page-link" asp-controller="Articulos" asp-action="Index" ><i class="fas fa-shopping-basket"></i></a>
+                <li class="">
+                    <a class="page-link bg-warning text-dark" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
                 </li>
                 <li class="page-item " aria-current="page">
-                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index">1</a>
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
                 </li>
-                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl">2</a></li>
+                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
                 <li class="page-item">
                     <span class="page-link">
-                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl">3</a>
+                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a>
                     </span>
                 </li>
             </ul>
@@ -51,7 +52,7 @@
 
                 if (typeof data != "undefined") {
                     for (var i = 0; i < data.length; i++) {
-                        tbody += "<p>" + data[i].DetallePedido.Total+ "</p>";          
+                        tbody += "<p>" + data[i].DetallePedido.Total + "</p>";
                         $("#cBody").append(tbody);
                         fnPrecioTotal();
                     }
@@ -61,7 +62,7 @@
             error: function () {
 
             }
-            
+
         });
     }
 </script>
