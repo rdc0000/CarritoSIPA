@@ -64,7 +64,7 @@ namespace Carrito.Controllers
             {
                 _context.Add(articulo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexCl));
             }
             return View(articulo);
         }
