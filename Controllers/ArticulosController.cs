@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carrito.Models;
+using Carrito.ViewModel;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Carrito.Controllers
 {
     public class ArticulosController : Controller
     {
         private readonly CarritoContext _context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public ArticulosController(CarritoContext context)
+        public ArticulosController(CarritoContext context,
+                                    IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Articulos
@@ -26,7 +32,8 @@ namespace Carrito.Controllers
 
         public async Task<IActionResult> IndexCl()
         {
-            return View(await _context.Articulo.ToListAsync());
+            var carritoContext = _context.Articulo.Include(d => d.Proveedor);
+            return View(await carritoContext.ToListAsync());
         }
 
         // GET: Articulos/Details/5
@@ -38,18 +45,27 @@ namespace Carrito.Controllers
             }
 
             var articulo = await _context.Articulo
+                .Include(d => d.Proveedor)
                 .FirstOrDefaultAsync(m => m.ArticuloID == id);
             if (articulo == null)
             {
                 return NotFound();
             }
+            ArticuloDetailsViewModel articuloDetailsViewModel = new ArticuloDetailsViewModel()
+            {
+                Articulo = await _context.Articulo
+                .Include(d => d.Proveedor)
+                .FirstOrDefaultAsync(m => m.ArticuloID == id),
+                PageTitle = "Employee Details"
+            };
 
-            return View(articulo);
+            return View(articuloDetailsViewModel);
         }
 
         // GET: Articulos/Create
         public IActionResult Create()
         {
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre");
             return View();
         }
 
@@ -58,15 +74,33 @@ namespace Carrito.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArticuloID,Nombre,Precio,Cantidad,Imagen")] Articulo articulo)
+        public async Task<IActionResult> Create([Bind("ArticuloID,Proveedor,Nombre,Precio,Cantidad,Imagen")] ArticuloCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(articulo);
+                string uniqueFileName = null;
+                if (model.Imagen != null)
+                {
+                    string uploadsFolder= Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Imagen.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Imagen.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+
+                Articulo newArticulo = new Articulo
+                {
+                    Proveedor= model.Proveedor,
+                    Nombre = model.Nombre,
+                    Precio=model.Precio,
+                    Cantidad=model.Cantidad,
+                    Imagen= uniqueFileName
+                };
+                _context.Add(newArticulo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(IndexCl));
+                return RedirectToAction("IndexCl", new { id = newArticulo.ArticuloID});
             }
-            return View(articulo);
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", model.Proveedor);
+            return View(model);
         }
 
         // GET: Articulos/Edit/5
@@ -82,6 +116,7 @@ namespace Carrito.Controllers
             {
                 return NotFound();
             }
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", articulo.Proveedor);
             return View(articulo);
         }
 
@@ -115,8 +150,9 @@ namespace Carrito.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(IndexCl));
             }
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", articulo.Proveedor);
             return View(articulo);
         }
 
@@ -129,6 +165,7 @@ namespace Carrito.Controllers
             }
 
             var articulo = await _context.Articulo
+                .Include(d => d.Proveedor)
                 .FirstOrDefaultAsync(m => m.ArticuloID == id);
             if (articulo == null)
             {
@@ -146,7 +183,7 @@ namespace Carrito.Controllers
             var articulo = await _context.Articulo.FindAsync(id);
             _context.Articulo.Remove(articulo);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCl));
         }
 
         private bool ArticuloExists(int id)

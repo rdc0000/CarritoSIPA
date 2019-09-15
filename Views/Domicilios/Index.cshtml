@@ -13,7 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Transporte)
+                @Html.DisplayNameFor(model => model.Transporte.TipoVehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transporte.Placa)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.HoraFecha)
@@ -25,7 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Transporte.TransporteID)
+                @Html.DisplayFor(modelItem => item.Transporte.TipoVehiculo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transporte.Placa)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.HoraFecha)

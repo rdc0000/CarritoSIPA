@@ -8,6 +8,7 @@
         <div class="row">
            @foreach (var item in Model)
             { 
+               var imagen = "~/images/" + (item.Imagen ?? "pred.jpg");
                 <div class="col-sm-12 col-md-5  col-lg-4">
                 
                     <div class="card-group">
@@ -16,7 +17,7 @@
                                 <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label>
                             </div>
                             <div class="card-body text-dark">
-                                <h5 class="card-title"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6mYnGb38WSg-XS24yu6LNTw0K29HYZp9U_6XyQS6_PaCqwPH1Bw" alt="Alternate Text" /></h5>
+                                <h5 class="card-title"><img src="@imagen" asp-append-version="true" style="height:150px; width:200px;"/></h5>
 
                                 <h6>Precio:</h6>
                                 <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
