@@ -13,24 +13,24 @@
             <hr class="my-4">
             <p>Si ya eres cliente de SIPA digita tu correo.</p>
             <input type="email" id="email" class="form-control" />
-            <button type="submit" class="btn btn-dark text-warning btn-lg btn-block" onclick="fnValidar()">Verificar</button>
+            <button type="submit" class="btn btn-dark text-warning btn-lg btn-block" onclick="fnValidar(this)">Verificar</button>
 
             <div class="cFoo">
                 <nav aria-label="...">
                     <ul class="pagination pagination-lg">
                         <li>
-                            <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></i></a>
+                            <a class="page-link shadow" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></i></a>
                         </li>
                         <li class="page-item " aria-current="page">
-                            <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                            <a class="page-link shadow" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
                         </li>
                         <li class="page-item">
-                            <span class="page-link">
-                                <a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a>
+                            <span class="page-link border-0">
+                                <a class="page-link shadow" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag shadow-lg"></i></a>
                             </span>
                         </li>
                         <li class="page-item">
-                            <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a>
+                            <a class="page-link shadow" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a>
                         </li>
                     </ul>
                 </nav>
@@ -81,18 +81,13 @@
 </div>
 
 
-@*<script>
-        function fnValidar(email) {
-            var email = document.getElementById("email");
-            if (email == null || email == "") {
+<script>
+    function fnValidar(email) {
+        var email = document.getElementById("email");
+        if (email == null || email == "") {
 
-                alert("Ingrese email para validar" + cantidad);
-                return;
-            } else if (email == Cliente.email) {
-                console.log("Cliente encontrado");
-            } else {
-                console.log("Cliente NO encontrado");
-            }
+                alert("Ingrese email para validar");
+            } 
             //$.ajax({
             //    type: "GET",
             //    url: "Clientes/ClienteExists",
@@ -106,4 +101,4 @@
             //    }
             //});
         }
-    </script>*@
+    </script>

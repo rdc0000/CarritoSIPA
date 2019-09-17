@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carrito.Models;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Carrito.Controllers
 {
@@ -181,13 +182,42 @@ namespace Carrito.Controllers
             return _context.Pedido.Any(e => e.PedidoID == id);
         }
 
+        public void SetSession(object obj)
+        {
+            HttpContext.Session.SetString("carrito", JsonConvert.SerializeObject(obj));
+        }
+
+        public string GetSession()
+        {
+            return HttpContext.Session.GetString("carrito");
+
+        }
+
+        [HttpPost]
+        public string Agregar([FromBody] Pedido modelo)
+        {
+            if (GetSession() == null)
+            {
+                List<Pedido> lista = new List<Pedido>();
+                lista.Add(modelo);
+                SetSession(lista);
+            }
+            else
+            {
+                List<Pedido> lista = JsonConvert.DeserializeObject<List<Pedido>>(GetSession());
+                lista.Add(modelo);
+                SetSession(lista);
+            }
+            var value = GetSession();
+            return value;
+        }
         [HttpGet]
         public string Llenar()
         {
-            var session = HttpContext.Session.GetString("carrito");
+            var session = GetSession();
             return session;
         }
 
-        
+
     }
 }

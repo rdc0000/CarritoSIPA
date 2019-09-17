@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Carrito.Models.Pedido>
+﻿@model IEnumerable<Pedido>
 
 @{
     ViewData["Title"] = "IndexCl";
@@ -8,29 +8,20 @@
 <h2>IndexCl</h2>
 
 <div class="card text-left">
-    <div class="card-body" id="cBody">
-        @foreach (var item in Model)
-        {
-            <p>Cliente: @Html.DisplayFor(modelItem => item.Cliente.Nombre) @Html.DisplayFor(modelItem => item.Cliente.Apellido)</p>
-            <p>Metodo de pago: @Html.DisplayFor(modelItem => item.MetodoPago.Nombre)</p>
-            <p>Direccion: @Html.DisplayFor(modelItem => item.Cliente.Direccion)</p>
-            <p>@Html.DisplayFor(modelItem => item.Domicilio.Transporte)</p>
-            <a href="#" class="btn btn-dark">Go somewhere</a>
-        }
-    </div>
+    
     <div class="card-footer cFoo text-muted">
         <nav class="navIt" aria-label="...">
             <ul class="pagination pagination-lg">
                 <li class="">
-                    <a class="page-link bg-warning text-dark" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+                    <a class="page-link bg-warning text-dark shadow" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
                 </li>
                 <li class="page-item " aria-current="page">
-                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                    <a class="page-link shadow" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
                 </li>
-                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
+                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag shadow"></i></a></li>
                 <li class="page-item">
-                    <span class="page-link">
-                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a>
+                    <span class="page-link border-0">
+                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly shadow-lg"></i></a>
                     </span>
                 </li>
             </ul>
@@ -38,31 +29,5 @@
     </div>
 </div>
 <script>
-    $(function () {
-        fnLlenar();
-    });
-    function fnLlenar() {
-        var tbody = "";
-        $.ajax({
-            type: "GET",
-            url: "Pedidos/Llenar",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-
-                if (typeof data != "undefined") {
-                    for (var i = 0; i < data.length; i++) {
-                        tbody += "<p>" + data[i].DetallePedido.Total + "</p>";
-                        $("#cBody").append(tbody);
-                        fnPrecioTotal();
-                    }
-                    console.log(data);
-                }
-            },
-            error: function () {
-
-            }
-
-        });
-    }
+    
 </script>

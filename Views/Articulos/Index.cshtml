@@ -9,24 +9,24 @@
            @foreach (var item in Model)
             { 
                var imagen = "~/images/" + (item.Imagen ?? "pred.jpg");
-                <div class="col-sm-12 col-md-5  col-lg-4">
+                <div class="col-sm-12 col-md-5  col-lg-4 ">
                 
                     <div class="card-group">
-                        <div class="card border-dark mb-3 text-white" style="max-width: 18rem;">
+                        <div class="card border-dark mb-3 text-white shadow-lg" style="max-width: 18rem;">
                             <div class="card-header bg-dark text-sm-center">
-                                <label id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)">@Html.DisplayFor(modelItem => item.Nombre)</label>
+                                <label class="mt-2" id="lblNombre_@Html.DisplayFor(modelItem => item.Nombre)"><h4>@Html.DisplayFor(modelItem => item.Nombre)</h4></label>
                             </div>
                             <div class="card-body text-dark">
                                 <h5 class="card-title"><img src="@imagen" asp-append-version="true" style="height:150px; width:200px;"/></h5>
 
-                                <h6>Precio:</h6>
-                                <label id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">@Html.DisplayFor(modelItem => item.Precio)</label><br />
-                                <h6>Cantidad:</h6>
-                                <input type="text" id="txtCantidad" /><br />
+                                <h6 class="font-weight-bold mb-2">Precio:</h6>
+                                <label class="text-monospace" id="lblPrecio_@Html.DisplayFor(modelItem => item.Precio)">$ @Html.DisplayFor(modelItem => item.Precio)</label><br />
+                                <h6 class="font-weight-bold">Cantidad:</h6>
+                                <input class="pr-5" type="text" id="txtCantidad" /><br />
                                 
                             </div>
                             <div class="card-footer text-center">
-                                <input type="button" value="Agregar" class="btn btn-dark text-warning" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
+                                <input type="button" value="Agregar" class="btn btn-dark text-warning shadow-sm" onclick="fnAgregrar('@Html.DisplayFor(modelItem => item.ArticuloID)','@Html.DisplayFor(modelItem => item.Nombre)','@Html.DisplayFor(modelItem => item.Precio)','@Html.DisplayFor(modelItem => item.Imagen)');" />
                             </div>
                         </div>
                     </div>

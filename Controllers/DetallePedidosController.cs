@@ -39,10 +39,10 @@ namespace Carrito.Controllers
         {
             HttpContext.Session.SetString("carrito", JsonConvert.SerializeObject(obj));
         }
-       
+
         public string GetSession()
         {
-           return HttpContext.Session.GetString("carrito");
+            return HttpContext.Session.GetString("carrito");
 
         }
 
@@ -76,7 +76,7 @@ namespace Carrito.Controllers
         {
             List<DetallePedido> lista = JsonConvert.DeserializeObject<List<DetallePedido>>(GetSession());
             var resultado = lista.FirstOrDefault(p => p.Articulo.ArticuloID == modelo.Articulo.ArticuloID);
-            if (resultado!=null)
+            if (resultado != null)
             {
                 resultado.Cantidad = modelo.Cantidad;
                 resultado.Total = modelo.Total;

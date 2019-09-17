@@ -6,48 +6,48 @@
 }
 <br />
 <br />
-    <div class="container">
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ArticuloiD</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="tbodyDetallePedido"></tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4" class="text-right">PrecioTotal</td>
-                    <td><label id="lblTotal"></label></td>
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ArticuloiD</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="tbodyDetallePedido"></tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4" class="text-right">PrecioTotal</td>
+                <td><label id="lblTotal"></label></td>
 
-                </tr>
+            </tr>
 
-            </tfoot>
+        </tfoot>
 
-        </table>
-    </div>
-    <div class="cFoo">
-        <nav aria-label="...">
-            <ul class="pagination pagination-lg">
-                <li>
-                    <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
-                </li>
-                <li class="page-item " aria-current="page">
-                    <span class="page-link">
-                        <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
-                    </span>
-                </li>
-                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
-                <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a></li>
-            </ul>
-        </nav>
-    </div>
+    </table>
+</div>
+<div class="cFoo">
+    <nav aria-label="...">
+        <ul class="pagination pagination-lg">
+            <li>
+                <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+            </li>
+            <li class="page-item " aria-current="page">
+                <span class="page-link">
+                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                </span>
+            </li>
+            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
+            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a></li>
+        </ul>
+    </nav>
+</div>
 
-<div class="modal fade" id="modalEditar" >
+<div class="modal fade" id="modalEditar">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -92,14 +92,14 @@
                 if (typeof data != "undefined") {
                     for (var i = 0; i < data.length; i++) {
                         tbody = "<tr>";
-                        tbody += "<td>" + data[i].Articulo.ArticuloID+ "</td>";
+                        tbody += "<td>" + data[i].Articulo.ArticuloID + "</td>";
                         tbody += "<td>" + data[i].Articulo.Nombre + "</td>";
                         tbody += "<td>" + data[i].Articulo.Precio + "</td>";
                         tbody += "<td>" + data[i].Cantidad + "</td>";
                         tbody += "<td>" + data[i].Total + "</td>";
-                        tbody += "<td>" ;
-                        tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-info'/>" ;
-                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-warning'/>" ;
+                        tbody += "<td>";
+                        tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-info'/>";
+                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-warning'/>";
                         tbody += "</td>";
                         tbody += "</tr>";
                         $("#tbodyDetallePedido").append(tbody);
@@ -111,7 +111,7 @@
             error: function () {
 
             }
-            
+
         });
     }
     function fnPrecioTotal() {
@@ -148,20 +148,20 @@
 
     function fnEditarBtn() {
         $("#btnEditar").on("click", function () {
-                col_cantidad.text($("#txtEditarCtd").val());
+            col_cantidad.text($("#txtEditarCtd").val());
 
-                var monto = parseFloat(col_precio.text() * col_cantidad.text());
-                col_total.text(monto);
-                fnPrecioTotal();
+            var monto = parseFloat(col_precio.text() * col_cantidad.text());
+            col_total.text(monto);
+            fnPrecioTotal();
 
-                popup.modal("hide");
+            popup.modal("hide");
 
-                var odata = {
-                    "Articulo": {
-                        "ArticuloID": col_ArticuloID,
+            var odata = {
+                "Articulo": {
+                    "ArticuloID": col_ArticuloID,
                 },
-                    "Cantidad": col_cantidad.text(),
-                    "Total": $("#lblTotal").text()
+                "Cantidad": col_cantidad.text(),
+                "Total": $("#lblTotal").text()
             };
             console.log(odata);
 
@@ -187,16 +187,16 @@
             $.ajax({
                 type: "POST",
                 url: "DetallePedidos/Eliminar/?articuloID=" + idArticulo,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (d) {
-                if (d != null || d != "") {
-                    fnPrecioTotal();
-                }
-            },
-            error: function () {
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (d) {
+                    if (d != null || d != "") {
+                        fnPrecioTotal();
+                    }
+                },
+                error: function () {
 
-            }
+                }
             });
             $(this).closest("tr").remove();
         });
