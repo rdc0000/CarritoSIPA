@@ -1,19 +1,119 @@
 ﻿@{
     ViewData["Title"] = "Admin";
-}<br />
- <br />
-<h2>Tablas proyecto SIPA</h2>
-
-    <div class="btn-group mr-2" role="group" aria-label="First group" style=".btn{margin-top:0;}">
-        <a asp-area="" asp-controller="Articulos" asp-action="IndexCl" class="btn btn-primary" role="button">Articulo</a>
-        <a asp-area="" asp-controller="Autoservicios" asp-action="" class="btn btn-primary" role="button">Autoservicio</a>
-        <a asp-area="" asp-controller="Clientes" asp-action="" class="btn btn-primary" role="button">Cliente</a>
-        <a asp-area="" asp-controller="Domicilios" asp-action="" class="btn btn-primary" role="button">Domicilio</a>
-        <a asp-area="" asp-controller="DetallePedidos" asp-action="" class="btn btn-primary" role="button">Detalle de pedidos</a>
-        <a asp-area="" asp-controller="Empleados" asp-action="" class="btn btn-primary" role="button">Empleado</a>
-        <a asp-area="" asp-controller="MetodoPagos" asp-action="" class="btn btn-primary" role="button">Metodo de pago</a>
-        <a asp-area="" asp-controller="Pedidos" asp-action="" class="btn btn-primary" role="button">Pedido</a>
-        <a asp-area="" asp-controller="Proveedores" asp-action="" class="btn btn-primary" role="button">Proveedor</a>
-        <a asp-area="" asp-controller="Transportes" asp-action="" class="btn btn-primary" role="button">Transporte</a>
+}
+<br />
+<br />
+<h2 class="display-4">Tablas proyecto SIPA</h2>
+<br />
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Articulos</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Articulos" asp-action="IndexCl" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
     </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Autoservicios</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Autoservicios" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Clientes</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Clientes" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Domicilios</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Domicilios" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Detalle de Pedido</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="DetallePedido" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Empleados</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Empleados" asp-action="IndexCl" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Metodo de Pago</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="MetodoPago" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Pedidos</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Pedidos" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card">
+                <div class="card-header bg-dark text-warning"><h5 class="card-title">Proveedores</h5></div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Proveedores" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header bg-dark text-warning"><h5 class="card-title">Transportes</h5></div>
+        </div>
+            <div class="card-body">                
+                <p class="card-text">Aqui encontrará la informacion de los articulos de SIPA.</p>
+                <a asp-area="" asp-controller="Transportes" asp-action="Index" class="btn btn-dark" role="button">Ir</a>
+            </div>
+    </div>
+</div>
+
 
