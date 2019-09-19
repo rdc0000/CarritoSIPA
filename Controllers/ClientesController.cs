@@ -166,5 +166,35 @@ namespace Carrito.Controllers
         {
             return _context.Cliente.Any(e => e.ClienteID == id);
         }
+
+        public IActionResult listar()
+        {
+            return View();
+        }
+        public async Task<IActionResult> listar(string email)
+        {
+            if (email == null)
+            {
+                return NotFound();
+            }
+            var cliente = _context.Cliente
+                .Where(m => m.Email == email)
+                .Select(m => new
+                {
+                    nombre=m.Nombre,
+                    apellido=m.Apellido,
+                    direccion=m.Direccion,
+                    email=m.Email
+                }).ToList();
+
+            await _context.SaveChangesAsync();
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View(cliente);
+        }
+
     }
 }

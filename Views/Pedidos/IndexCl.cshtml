@@ -1,33 +1,77 @@
-﻿@model IEnumerable<Pedido>
+﻿@model Carrito.Models.Pedido
 
 @{
     ViewData["Title"] = "IndexCl";
 }
-<br />
-<br />
+
 <h2>IndexCl</h2>
 
-<div class="card text-left">
-    
-    <div class="card-footer cFoo text-muted">
-        <nav class="navIt" aria-label="...">
-            <ul class="pagination pagination-lg">
-                <li class="">
-                    <a class="page-link bg-warning text-dark shadow" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
-                </li>
-                <li class="page-item " aria-current="page">
-                    <a class="page-link shadow" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
-                </li>
-                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag shadow"></i></a></li>
-                <li class="page-item">
-                    <span class="page-link border-0">
-                        <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly shadow-lg"></i></a>
-                    </span>
-                </li>
-            </ul>
-        </nav>
+<h4>Pedido</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="IndexCl">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AutoservicioID" class="control-label"></label>
+                <select asp-for="AutoservicioID" class="form-control" asp-items="ViewBag.AutoservicioID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClienteID" class="control-label"></label>
+                <select asp-for="ClienteID" class="form-control" asp-items="ViewBag.ClienteID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MetodoPagoID" class="control-label"></label>
+                <select asp-for="MetodoPagoID" class="form-control" asp-items="ViewBag.MetodoPagoID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DomicilioID" class="control-label"></label>
+                <select asp-for="DomicilioID" class="form-control" asp-items="ViewBag.DomicilioID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaHora" class="control-label"></label>
+                <input asp-for="FechaHora" class="form-control" />
+                <span asp-validation-for="FechaHora" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Total" class="control-label"></label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+    <div class="card text-left">
+
+        <div class="card-footer cFoo text-muted">
+            <nav class="navIt" aria-label="...">
+                <ul class="pagination pagination-lg">
+                    <li class="">
+                        <a class="page-link bg-warning text-dark shadow" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+                    </li>
+                    <li class="page-item " aria-current="page">
+                        <a class="page-link shadow" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag shadow"></i></a></li>
+                    <li class="page-item">
+                        <span class="page-link border-0">
+                            <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly shadow-lg"></i></a>
+                        </span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 </div>
-<script>
-    
-</script>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

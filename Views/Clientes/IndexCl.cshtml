@@ -79,26 +79,43 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    function fnValidar(email) {
-        var email = document.getElementById("email");
-        if (email == null || email == "") {
 
-                alert("Ingrese email para validar");
-            } 
-            //$.ajax({
-            //    type: "GET",
-            //    url: "Clientes/ClienteExists",
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    success: function (d) {
-            //        console.log(d+" emailCliente");
-            //    },
-            //    error: function () {
+    function fnListar(ArticuloID, Nombre, Precio, Imagen) {
+        var cantidad = document.getElementById("txtCantidad").value;
+        if (cantidad == null || cantidad == "") {
 
-            //    }
-            //});
+            $("#alerts").text("Ingrese cantidad");
+            return;
+        } else {
+            $("#alerts").hide();
         }
-    </script>
+        var odata = {
+            "Articulo": {
+                "ArticuloID": ArticuloID,
+                "Nombre": Nombre,
+                "Precio": Precio,
+                "Imagen": Imagen
+            },
+            "Cantidad": cantidad
+        };
+        console.log(odata);
+
+        $.ajax({
+            type: "POST",
+            url: "DetallePedidos/Agregar",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(odata),
+            success: function (d) {
+                if (d != null || d != "") {
+                    $("#lblItemCarro").text("(" + d.length + ")");
+
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
+</script>

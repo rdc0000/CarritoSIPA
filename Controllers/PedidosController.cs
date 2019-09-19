@@ -27,10 +27,41 @@ namespace Carrito.Controllers
             return View(await carritoContext.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexCl()
+        
+
+        public IActionResult IndexCl()
         {
-            var carritoContext = _context.Pedido.Include(p => p.Autoservicio).Include(p => p.Cliente).Include(p => p.Domicilio).Include(p => p.MetodoPago);
-            return View(await carritoContext.ToListAsync());
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre");
+            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Nombre");
+            ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID");
+            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "Nombre");
+            return View();
+        }
+
+        // POST: Pedidos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IndexCl([Bind("PedidoID,AutoservicioID,ClienteID,MetodoPagoID,DomicilioID,FechaHora,Direccion,Total")] Pedido pedido)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(pedido);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(IndexCl));
+            }
+            Cliente cliente = new Cliente
+            {
+                Nombre = pedido.Cliente.Nombre,
+                Apellido = pedido.Cliente.Apellido,
+                Direccion = pedido.Cliente.Direccion
+            };
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre", pedido.AutoservicioID);
+            ViewData["ClienteID"] = cliente;
+            ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID", pedido.DomicilioID);
+            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "Nombre", pedido.MetodoPagoID);
+            return View(cliente);
         }
 
         // GET: Pedidos/Details/5
@@ -58,10 +89,10 @@ namespace Carrito.Controllers
         // GET: Pedidos/Create
         public IActionResult Create()
         {
-            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Direccion");
-            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Apellido");
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre");
+            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Nombre");
             ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID");
-            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "NumeroReferencia");
+            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "Nombre");
             return View();
         }
 
@@ -78,9 +109,10 @@ namespace Carrito.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Direccion", pedido.AutoservicioID);
-            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Apellido", pedido.ClienteID);
-            ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID", pedido.DomicilioID);
+            
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre", pedido.AutoservicioID);
+            ViewData["ClienteID"] = new SelectList(_context.Autoservicio, "ClienteID", "Nombre", pedido.AutoservicioID);
+            ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "Nombre", pedido.DomicilioID);
             ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "NumeroReferencia", pedido.MetodoPagoID);
             return View(pedido);
         }
@@ -98,10 +130,10 @@ namespace Carrito.Controllers
             {
                 return NotFound();
             }
-            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Direccion", pedido.AutoservicioID);
-            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Apellido", pedido.ClienteID);
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre", pedido.AutoservicioID);
+            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Nombre", pedido.ClienteID);
             ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID", pedido.DomicilioID);
-            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "NumeroReferencia", pedido.MetodoPagoID);
+            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "Nombre", pedido.MetodoPagoID);
             return View(pedido);
         }
 
@@ -137,10 +169,10 @@ namespace Carrito.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Direccion", pedido.AutoservicioID);
-            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Apellido", pedido.ClienteID);
+            ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre", pedido.AutoservicioID);
+            ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Nombre", pedido.ClienteID);
             ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID", pedido.DomicilioID);
-            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "NumeroReferencia", pedido.MetodoPagoID);
+            ViewData["MetodoPagoID"] = new SelectList(_context.MetodoPago, "MetodoPagoID", "Nombre", pedido.MetodoPagoID);
             return View(pedido);
         }
 

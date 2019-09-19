@@ -588,14 +588,13 @@ section#contact .form-group {
   margin-bottom: 25px;
 }
 
-section#contact .form-group input,
-section#contact .form-group textarea {
-  padding: 20px;
-}
-
-section#contact .form-group input.form-control {
-  height: auto;
-}
+    section#contact .form-group input,
+    section#contact .form-group textarea {
+        padding: 10px !important;
+        margin: 0 auto !important;
+        height: 50% !important;
+        width: 0 !important;
+    }
 
 section#contact .form-group textarea.form-control {
   height: 248px;

@@ -6,46 +6,47 @@
 }
 <br />
 <br />
-<div class="container">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ArticuloiD</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Cantidad</th>
-                <th>Total</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="tbodyDetallePedido"></tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4" class="text-right">PrecioTotal</td>
-                <td><label id="lblTotal"></label></td>
 
-            </tr>
+    <div class="container">
+        <table class="table table-hover table-striped table-dark">
+            <thead>
+                <tr class="font-weight-bolder">
+                    <th>ArticuloiD</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="tbodyDetallePedido"></tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4" class="text-right">PrecioTotal</td>
+                    <td><label id="lblTotal"></label></td>
 
-        </tfoot>
+                </tr>
 
-    </table>
-</div>
-<div class="cFoo">
-    <nav aria-label="...">
-        <ul class="pagination pagination-lg">
-            <li>
-                <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
-            </li>
-            <li class="page-item " aria-current="page">
-                <span class="page-link">
-                    <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
-                </span>
-            </li>
-            <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
-            <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a></li>
-        </ul>
-    </nav>
-</div>
+            </tfoot>
+
+        </table>
+    </div>
+    <div class="cFoo">
+        <nav aria-label="...">
+            <ul class="pagination pagination-lg">
+                <li>
+                    <a class="page-link" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
+                </li>
+                <li class="page-item " aria-current="page">
+                    <span class="page-link">
+                        <a class="page-link" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
+                    </span>
+                </li>
+                <li class="page-item"><a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
+                <li class="page-item"><a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a></li>
+            </ul>
+        </nav>
+    </div>
 
 <div class="modal fade" id="modalEditar">
     <div class="modal-dialog" role="document">
@@ -97,9 +98,8 @@
                         tbody += "<td>" + data[i].Articulo.Precio + "</td>";
                         tbody += "<td>" + data[i].Cantidad + "</td>";
                         tbody += "<td>" + data[i].Total + "</td>";
-                        tbody += "<td>";
-                        tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-info'/>";
-                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-warning'/>";
+                        tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-outline-warning'/>" ;
+                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-outline-secondary'/>" ;
                         tbody += "</td>";
                         tbody += "</tr>";
                         $("#tbodyDetallePedido").append(tbody);
