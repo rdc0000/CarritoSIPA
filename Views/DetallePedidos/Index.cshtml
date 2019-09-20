@@ -98,8 +98,9 @@
                         tbody += "<td>" + data[i].Articulo.Precio + "</td>";
                         tbody += "<td>" + data[i].Cantidad + "</td>";
                         tbody += "<td>" + data[i].Total + "</td>";
+                        tbody += "<td>";
                         tbody += "<input type='button' id='btnEditar' value='Editar' class='btn btn-outline-warning'/>" ;
-                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-outline-secondary'/>" ;
+                        tbody += "<input type='button' id='btnEliminar' value='Eliminar' class='btn btn-outline-danger'/>" ;
                         tbody += "</td>";
                         tbody += "</tr>";
                         $("#tbodyDetallePedido").append(tbody);
