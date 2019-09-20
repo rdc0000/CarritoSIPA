@@ -4,9 +4,7 @@
     ViewData["Title"] = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Desea eliminar @Html.DisplayFor(model => model.Nombre)?</h3>
 <div>
     <h4>Articulo</h4>
     <hr />
@@ -45,7 +43,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ArticuloID" />
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Eliminar" class="btn btn-danger" /> |
+        <a class="btn btn-secondary" asp-action="IndexCl"><i class="fas fa-backspace"></i></a>
     </form>
 </div>

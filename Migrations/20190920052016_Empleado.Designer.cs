@@ -34,8 +34,6 @@ namespace Carrito.Migrations
 
                     b.Property<decimal>("Precio");
 
-                    b.Property<int>("ProveedorID");
-
                     b.HasKey("ArticuloID");
 
                     b.HasIndex("ProveedorID");
