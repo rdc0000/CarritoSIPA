@@ -97,128 +97,134 @@
             </div>
         </div>
     </nav>
- 
+
 
 
     <partial name="_CookieConsentPartial" />
-
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <section id="contact">
-                <div class="container">
-                    <h2 class="text-center text-uppercase text-secondary mb-0">Contactenos</h2>
-                    <hr class="star-dark mb-5">
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                        <label>
-                                            <h4>Nombre</h4>
-                                        </label>
-                                        <input class="form-control" id="name" type="text" placeholder="Digite su usuario" required="required"
-                                               data-validation-required-message="Digite su usuario.">
-                                        <p class="help-block text-danger"></p>
+        <div class="body-content">
+            @RenderBody()
+            <footer>
+                <section id="contact">
+                    <div class="container">
+                        <h2 class="text-center text-uppercase text-secondary mb-0">Contactenos</h2>
+                        <hr class="star-dark mb-5">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6">
+                                <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
+                                <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
+                                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                                    <div class="control-group">
+                                        <div class=" floating-label-form-group controls mb-0 pb-2 text-warning">
+                                            <label>
+                                                <h4>Nombre</h4>
+                                            </label>
+                                            <input class="form-control" id="name" type="text" placeholder="Digite su usuario" required="required"
+                                                   data-validation-required-message="Digite su usuario.">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                        <label>
-                                            <h4>Correo</h4>
-                                        </label>
-                                        <input class="form-control" id="email" type="email" placeholder="Digite su email" required="required"
-                                               data-validation-required-message="Digite su email.">
-                                        <p class="help-block text-danger"></p>
+                                    <div class="control-group">
+                                        <div class="floating-label-form-group controls mb-0 pb-2 text-warning">
+                                            <label>
+                                                <h4>Correo</h4>
+                                            </label>
+                                            <input class="form-control" id="email" type="email" placeholder="Digite su email" required="required"
+                                                   data-validation-required-message="Digite su email.">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                        <label>
-                                            <h4>Numero</h4>
-                                        </label>
-                                        <input class="form-control" id="phone" type="tel" placeholder="Digite su telefono." required="required"
-                                               data-validation-required-message="Digite su telefono.">
-                                        <p class="help-block text-danger"></p>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-outline-warning btn-xl" id="sendMessageButton">Enviar</button>
                                     </div>
-                                </div>
-                                <div class="control-group">
-                                    <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                                        <label>
-                                            <h4>Mensaje</h4>
-                                        </label>
-                                        <textarea class="form-control" id="message" rows="5" placeholder="Digite su mensaje" required="required"
-                                                  data-validation-required-message="Digite su mensaje"></textarea>
-                                        <p class="help-block text-danger"></p>
-                                    </div>
-                                </div>
-                                <br>
-                                <div id="success"></div>
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Enviar</button>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6 center ">
-                            <div class="card-footer cFoo text-muted">
-                                <nav class="navIt" aria-label="...">
-                                    <ul class="pagination pagination-lg">
-                                        <li class="">
-                                            <a class="page-link bg-warning text-dark shadow" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a>
-                                        </li>
-                                        <li class="page-item " aria-current="page">
-                                            <a class="page-link shadow" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag shadow"></i></a>
-                                        </li>
-                                        <li class="page-item">
-                                            <a class="page-link" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly shadow-lg"></i></a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                    <br>
+                                    <div id="success"></div>
+                                </form>
                             </div>
-                            <div>
-                                <img src="~/images/logos/vivelab.png" alt="Alternate Text" />
-                                <img src="~/images/logos/gobernacion.png" alt="Alternate Text" />
+                            <div class="col-sm-12 col-md-6 col-lg-6 center ">
+                                <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                                    <div class="control-group">
+                                        <div class="floating-label-form-group controls mb-0 pb-2 text-warning">
+                                            <label>
+                                                <h4>Numero</h4>
+                                            </label>
+                                            <input class="form-control" id="phone" type="tel" placeholder="Digite su telefono." required="required"
+                                                   data-validation-required-message="Digite su telefono.">
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <div class="floating-label-form-group controls mb-0 pb-2 text-warning">
+                                            <label>
+                                                <h4>Mensaje</h4>
+                                            </label>
+                                            <textarea class="form-control" id="message" rows="5" placeholder="Digite su mensaje" required="required"
+                                                      data-validation-required-message="Digite su mensaje"></textarea>
+                                            <p class="help-block text-danger"></p>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div id="success"></div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-6 justify-content-center mt-5">
+                                <div class="cFoo">
+                                    <nav aria-label="...">
+                                        <ul class="pagination pagination-lg">
+                                            <li><a class="page-link" title="Articulos" asp-controller="Articulos" asp-action="Index"><i class="fas fa-shopping-basket"></i></a></li>
+                                            <li><a class="page-link" title="Carro de compras" asp-controller="DetallePedidos" asp-action="Index"><i class="fas fa-cart-plus"></i></a></li>
+                                            <li><a class="page-link" title="Clientes" asp-controller="Clientes" asp-action="IndexCl"><i class="fas fa-user-tag"></i></a></li>
+                                            <li><a class="page-link" title="Pedidos" asp-controller="Pedidos" asp-action="IndexCl"><i class="fas fa-dolly"></i></a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <img class="mt-5" src="~/images/logos/sena.png" alt="Alternate Text" style="width:80px;" />
+                            </div>
+                            <div class="col-2">
+                                <img src="~/images/logos/vivelab.png" alt="Alternate Text" style="width:150px;" />
+                            </div>
+                            <div class="col-2">
+                                <img src="~/images/logos/gobernacion.png" alt="Alternate Text" style="width:150px; margin-top:50px;" />
                             </div>
                         </div>
                     </div>
-                </div>
-                <a id="admin" asp-area="" asp-controller="Home" asp-action="Admin" class="btn btn-dark text-dark"  role="button" style="#admin:hover:background-color:white;color:black;">Articulo</a>
-                <p class="text-white">&copy; 2019 - SIPA</p>
-            </section>
+                    <a id="admin" asp-area="" asp-controller="Home" asp-action="Admin" class="btn btn-dark text-dark" role="button" style="#admin:hover:background-color:white;color:black;">Articulo</a>
+                    <p class="text-white">&copy; 2019 - SIPA</p>
+                </section>
 
-            
-        </footer>
-    </div>
-    <!--
-    <script src="~/twitter-bootstrap/js/bootstrap.min.js"></script>-->
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+            </footer>
+        </div>
+        <!--
+        <script src="~/twitter-bootstrap/js/bootstrap.min.js"></script>-->
 
-    @RenderSection("Scripts", required: false)
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+
+        @RenderSection("Scripts", required: false)
 </body>
 </html>

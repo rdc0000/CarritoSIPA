@@ -182,7 +182,7 @@ namespace Carrito.Controllers
             var articulo = await _context.Articulo.FindAsync(id);
             _context.Articulo.Remove(articulo);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCl));
         }
 
         private bool ArticuloExists(int id)
