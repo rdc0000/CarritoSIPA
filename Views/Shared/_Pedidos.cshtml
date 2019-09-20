@@ -1,0 +1,22 @@
+﻿@using Carrito.Models;
+@model IEnumerable<Pedido>
+
+    <table>
+        <tr>
+            <td>Autoservicio</td>
+            <td>Metodo de pago</td>
+            <td>Nombre</td>
+            <td>Apellido</td>
+            <td>Direccion</td>
+        </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Autoservicio)</td>
+            <td>@Html.DisplayFor(modelItem => item.MetodoPago)</td>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Nombre)</td>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Apellido)</td>
+            <td>@Html.DisplayFor(modelItem => item.Cliente.Direccion)</td>
+        </tr>
+    }
+    </table>
