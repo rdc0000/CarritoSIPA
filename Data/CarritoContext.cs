@@ -33,4 +33,6 @@ using Carrito.Models;
         public DbSet<Carrito.Models.Transporte> Transporte { get; set; }
 
         public DbSet<Carrito.Models.Proveedor> Proveedor { get; set; }
+
+        public DbSet<Carrito.Models.Empleado> Empleado { get; set; }
 }

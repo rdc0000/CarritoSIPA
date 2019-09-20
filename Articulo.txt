@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,13 +27,12 @@ namespace Carrito.Controllers
         // GET: Articulos
         public async Task<IActionResult> Index()
         {
-            var carritoContext = _context.Articulo.Include(a => a.Proveedor);
-            return View(await carritoContext.ToListAsync());
+            return View(await _context.Articulo.ToListAsync());
         }
 
         public async Task<IActionResult> IndexCl()
         {
-            var carritoContext = _context.Articulo.Include(a => a.Proveedor);
+            var carritoContext = _context.Articulo.Include(d => d.Proveedor);
             return View(await carritoContext.ToListAsync());
         }
 
@@ -46,20 +45,27 @@ namespace Carrito.Controllers
             }
 
             var articulo = await _context.Articulo
-                .Include(a => a.Proveedor)
+                .Include(d => d.Proveedor)
                 .FirstOrDefaultAsync(m => m.ArticuloID == id);
             if (articulo == null)
             {
                 return NotFound();
             }
+            ArticuloDetailsViewModel articuloDetailsViewModel = new ArticuloDetailsViewModel()
+            {
+                Articulo = await _context.Articulo
+                .Include(d => d.Proveedor)
+                .FirstOrDefaultAsync(m => m.ArticuloID == id),
+                PageTitle = "Employee Details"
+            };
 
-            return View(articulo);
+            return View(articuloDetailsViewModel);
         }
 
         // GET: Articulos/Create
         public IActionResult Create()
         {
-            ViewData["ProveedorID"] = new SelectList(_context.Proveedor, "ProveedorID", "ProveedorID");
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre");
             return View();
         }
 
@@ -68,14 +74,14 @@ namespace Carrito.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ArticuloID,ProveedorID,Nombre,Precio,Cantidad,Imagen")] ArticuloCreateViewModel model)
+        public async Task<IActionResult> Create([Bind("ArticuloID,Proveedor,Nombre,Precio,Cantidad,Imagen")] ArticuloCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
                 if (model.Imagen != null)
                 {
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    string uploadsFolder= Path.Combine(hostingEnvironment.WebRootPath, "images");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Imagen.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
                     model.Imagen.CopyTo(new FileStream(filePath, FileMode.Create));
@@ -83,18 +89,17 @@ namespace Carrito.Controllers
 
                 Articulo newArticulo = new Articulo
                 {
-                    ProveedorID = model.ProveedorID,
+                    Proveedor= model.Proveedor,
                     Nombre = model.Nombre,
-                    Precio = model.Precio,
-                    Cantidad = model.Cantidad,
-                    Imagen = uniqueFileName
+                    Precio=model.Precio,
+                    Cantidad=model.Cantidad,
+                    Imagen= uniqueFileName
                 };
-
                 _context.Add(newArticulo);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("IndexCl", new { id = newArticulo.ArticuloID });
+                return RedirectToAction("IndexCl", new { id = newArticulo.ArticuloID});
             }
-            ViewData["ProveedorID"] = new SelectList(_context.Proveedor, "ProveedorID", "ProveedorID", model.Proveedor);
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", model.Proveedor);
             return View(model);
         }
 
@@ -111,7 +116,7 @@ namespace Carrito.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProveedorID"] = new SelectList(_context.Proveedor, "ProveedorID", "ProveedorID", articulo.ProveedorID);
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", articulo.Proveedor);
             return View(articulo);
         }
 
@@ -120,39 +125,35 @@ namespace Carrito.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ArticuloID,ProveedorID,Nombre,Precio,Cantidad,Imagen")] ArticuloCreateViewModel model)
+        public async Task<IActionResult> Edit(int id, [Bind("ArticuloID,Nombre,Precio,Cantidad,Imagen")] Articulo articulo)
         {
-            if (id != model.ArticuloID)
+            if (id != articulo.ArticuloID)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
-                    string uniqueFileName = null;
-                    if (model.Imagen != null)
+                try
+                {
+                    _context.Update(articulo);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ArticuloExists(articulo.ArticuloID))
                     {
-                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Imagen.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        model.Imagen.CopyTo(new FileStream(filePath, FileMode.Create));
+                        return NotFound();
                     }
-
-                    Articulo newArticulo = new Articulo
+                    else
                     {
-                        ProveedorID = model.ProveedorID,
-                        Nombre = model.Nombre,
-                        Precio = model.Precio,
-                        Cantidad = model.Cantidad,
-                        Imagen = uniqueFileName
-                    };                    
-               
-                _context.Add(newArticulo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("IndexCl", new { id = newArticulo.ArticuloID });
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(IndexCl));
             }
-            ViewData["ProveedorID"] = new SelectList(_context.Proveedor, "ProveedorID", "ProveedorID", model.ProveedorID);
-            return View(model);
+            ViewData["ProveedorID"] = new SelectList(_context.Set<Proveedor>(), "ProveedorID", "Nombre", articulo.Proveedor);
+            return View(articulo);
         }
 
         // GET: Articulos/Delete/5
@@ -164,7 +165,7 @@ namespace Carrito.Controllers
             }
 
             var articulo = await _context.Articulo
-                .Include(a => a.Proveedor)
+                .Include(d => d.Proveedor)
                 .FirstOrDefaultAsync(m => m.ArticuloID == id);
             if (articulo == null)
             {
@@ -182,7 +183,7 @@ namespace Carrito.Controllers
             var articulo = await _context.Articulo.FindAsync(id);
             _context.Articulo.Remove(articulo);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(IndexCl));
         }
 
         private bool ArticuloExists(int id)
