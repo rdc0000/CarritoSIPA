@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Carrito.Migrations
 {
     [DbContext(typeof(CarritoContext))]
-    [Migration("20190914020008_Proveedor")]
-    partial class Proveedor
+    [Migration("20190920101355_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace Carrito.Migrations
 
                     b.Property<decimal>("Precio");
 
-                    b.Property<int?>("ProveedorID");
+                    b.Property<int>("ProveedorID");
 
                     b.HasKey("ArticuloID");
 
@@ -137,6 +137,55 @@ namespace Carrito.Migrations
                     b.ToTable("Domicilio");
                 });
 
+            modelBuilder.Entity("Carrito.Models.Empleado", b =>
+                {
+                    b.Property<int>("EmpleadoID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Cargo")
+                        .IsRequired();
+
+                    b.Property<string>("Documento")
+                        .IsRequired();
+
+                    b.Property<int?>("InputModelID");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Telefono")
+                        .IsRequired();
+
+                    b.HasKey("EmpleadoID");
+
+                    b.HasIndex("InputModelID");
+
+                    b.ToTable("Empleado");
+                });
+
+            modelBuilder.Entity("Carrito.Models.Empleado+InputModel", b =>
+                {
+                    b.Property<int>("InputModelID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Contraseña")
+                        .IsRequired();
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.HasKey("InputModelID");
+
+                    b.ToTable("InputModel");
+                });
+
             modelBuilder.Entity("Carrito.Models.MetodoPago", b =>
                 {
                     b.Property<int>("MetodoPagoID")
@@ -228,7 +277,8 @@ namespace Carrito.Migrations
                 {
                     b.HasOne("Carrito.Models.Proveedor", "Proveedor")
                         .WithMany()
-                        .HasForeignKey("ProveedorID");
+                        .HasForeignKey("ProveedorID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Carrito.Models.DetallePedido", b =>
@@ -244,6 +294,13 @@ namespace Carrito.Migrations
                         .WithMany()
                         .HasForeignKey("TransporteID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Carrito.Models.Empleado", b =>
+                {
+                    b.HasOne("Carrito.Models.Empleado+InputModel", "Input")
+                        .WithMany()
+                        .HasForeignKey("InputModelID");
                 });
 
             modelBuilder.Entity("Carrito.Models.Pedido", b =>

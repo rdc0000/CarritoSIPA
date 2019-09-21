@@ -1,0 +1,58 @@
+﻿@model Empleado
+@{
+    ViewData["Title"] = "Login";
+}<br />
+<br />
+    <div class="card border-dark mb-3" style="width: 35rem;margin:auto;">
+        <div class="card-body text-dark">
+            <form>
+                <div class="form-group">
+                     <label asp-for="Input.Email" for="Email"><h5><i class="fas fa-users-cog"></i> &nbsp;Correo electronico</h5></label>
+                    <input asp-for="Input.Email" type="email" class="form-control" id="Email" aria-describedby="emailHelp" placeholder="Ingrese correo electronico">
+                    
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Contraseña" for="Password"><h5><i class="fas fa-unlock-alt"></i> &nbsp;Contraseña</h5></label>
+                    <input asp-for="Input.Contraseña" type="password" class="form-control" id="Password" placeholder="Ingrese su contraseña">
+                </div>
+                <button type="submit" class="btn btn-outline-dark" onclick="Validar(Input.Email, Input.Contraseña)">Ingresar</button>
+                <div class="alert alert-warning" role="alert">
+                    <p id="alert"></p>
+                </div>
+            </form>
+        </div>
+    </div>
+<script>
+    function Validar(Email, Contraseña) {
+        var email = document.getElementById("Email");
+        var contraseña = document.getElementById("Password");
+        if (email == null || contraseña == null && email == "" || contraseña == "") {
+             $("#alert").text("Ingrese cantidad");
+             return;
+        }
+        else {
+            $("#alert").hide();
+            if (email == Email && contraseña==Contraseña) {
+                $.ajax({
+                    type: "POST",
+                    url: "Home/Admin",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (d) {
+                        if (d != null || d != "") {
+                            $("#lblItemCarro").text("(" + d.length + ")");
+
+                        }
+                    },
+                    error: function () {
+
+                    }
+                });
+                console.log(contraseña);
+                console.log(Contraseña);
+                console.log(Email);
+                console.log(email);
+            }
+        }
+    }
+</script>

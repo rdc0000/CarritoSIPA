@@ -29,6 +29,11 @@ namespace Carrito.Controllers
             return View(await _context.Empleado.ToListAsync());
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         // GET: Empleados/Details/5
         public async Task<IActionResult> Details(int? id)
         {

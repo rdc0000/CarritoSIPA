@@ -9,7 +9,7 @@ namespace Carrito.Models
     public class Articulo
     {
         public int ArticuloID { get; set; }
-        [Display(Name = "Autoservicio")]
+        [Display(Name = "Proveedor")]
         public int ProveedorID { get; set; }
         public Proveedor Proveedor { get; set; }
         public string Nombre { get; set; }

@@ -27,6 +27,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Telefono)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Input.Contraseña)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,6 +53,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Input.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Input.Contraseña)
             </td>
             <td>
                 <a class="btn btn-outline-warning"asp-action="Edit" asp-route-id="@item.EmpleadoID"><i class="fas fa-box-open"></i></a>
