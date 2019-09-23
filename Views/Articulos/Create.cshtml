@@ -53,10 +53,12 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>$(document).ready(function () {
-        $('.input').on("change", function () {
-            var fileName = $(this).val().split("\\").pop();
-            $(this).next('.input').html(fileName);
+    <script>
+        $(document).ready(function () {
+            $('.input').on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).next('.input').html(fileName);
+            });
         });
-    });</script>
+    </script>
 }
