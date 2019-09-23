@@ -6,20 +6,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Carrito.Models;
+using Microsoft.AspNetCore.Hosting;
+using Carrito.ViewModel;
+using System.IO;
 
 namespace Carrito.Controllers
 {
     public class AutoserviciosController : Controller
     {
         private readonly CarritoContext _context;
+        private readonly IHostingEnvironment hostingEnvironment;
 
-        public AutoserviciosController(CarritoContext context)
+        public AutoserviciosController(CarritoContext context,
+                                    IHostingEnvironment hostingEnvironment)
         {
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Autoservicios
         public async Task<IActionResult> Index()
+        {
+            return View(await _context.Autoservicio.ToListAsync());
+        }
+
+        public async Task<IActionResult> IndexCl()
         {
             return View(await _context.Autoservicio.ToListAsync());
         }
@@ -53,15 +64,34 @@ namespace Carrito.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AutoservicioID,Nombre,Direccion,Telefono,Estado,Imagen")] Autoservicio autoservicio)
+        public async Task<IActionResult> Create([Bind("AutoservicioID,Nombre,Direccion,Telefono,Estado,Imagen")] AutoservicioCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(autoservicio);
+                string uniqueFileName = null;
+                if (model.Imagen != null)
+                {
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Imagen.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    model.Imagen.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+
+                Autoservicio newAutoservicio = new Autoservicio
+                {
+                    AutoservicioID = model.AutoservicioID,
+                    Nombre = model.Nombre,
+                    Direccion = model.Direccion,
+                    Telefono = model.Telefono,
+                    Estado = model.Estado,
+                    Imagen = uniqueFileName
+                };
+
+                _context.Add(newAutoservicio);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { id = newAutoservicio.AutoservicioID });
             }
-            return View(autoservicio);
+            return View(model);
         }
 
         // GET: Autoservicios/Edit/5

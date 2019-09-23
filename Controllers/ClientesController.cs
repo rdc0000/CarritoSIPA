@@ -26,6 +26,7 @@ namespace Carrito.Controllers
 
         public IActionResult IndexCl()
         {
+            ViewData["consulta"] = "cliente";
             return View();
         }
 

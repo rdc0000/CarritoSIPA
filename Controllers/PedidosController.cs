@@ -30,7 +30,7 @@ namespace Carrito.Controllers
         
 
         public IActionResult IndexCl()
-        {
+        {          
             ViewData["AutoservicioID"] = new SelectList(_context.Autoservicio, "AutoservicioID", "Nombre");
             ViewData["ClienteID"] = new SelectList(_context.Cliente, "ClienteID", "Nombre");
             ViewData["DomicilioID"] = new SelectList(_context.Domicilio, "DomicilioID", "DomicilioID");
